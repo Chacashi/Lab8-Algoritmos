@@ -2,48 +2,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject NodePrefab;
-    public GameObject LineRendererPrefab;
-    public Transform NodeHolder;
+    [SerializeField] private MapaVizualizador visualizador;
 
-    public Graph<int, string> graph = new();
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        graph.AddNode(1, "Juan");
-        graph.AddNode(2, "Michael");
-        graph.AddNode(3, "Ingrind");
-        graph.AddNode(4, "Carlos");
-        graph.AddNode(5, "Hoschild");
+        MapaNavegable mapa = new MapaNavegable();
+        mapa.AddNode("A", new NodoMapa("Inicio", "Punto de partida"));
+        mapa.AddNode("B", new NodoMapa("Mitad", "Pasadiso", true));
+        mapa.AddNode("C", new NodoMapa("Mitad 2", "Baño", true));
+        mapa.AddNode("D", new NodoMapa("Mitad 3", "Pasadiso 2", true));
+        mapa.AddNode("E", new NodoMapa("Final", "Sala de espera", true));
+        mapa.AddEdge("A", "B");
+        mapa.AddEdge("B", "C");
+        mapa.AddEdge("C", "D");
+        mapa.AddEdge("D", "E");
 
-        graph.AddEdge(1, 4);
-        graph.AddEdge(2, 4);
-        graph.AddEdge(3, 4);
-        graph.AddEdge(4, 5);
-
-        graph.DisplayGraphAsList();
-        graph.DisplayGraphAsMatrix();
-        TestConnection();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    public void TestConnection()
-    {
-        GameObject A = Instantiate(NodePrefab, NodeHolder);
-        A.transform.position = Vector3.zero;
-        GameObject B = Instantiate(NodePrefab, NodeHolder);
-        B.transform.position = Vector3.up * 10;
-
-        GameObject LineR = Instantiate(LineRendererPrefab, NodeHolder);
-        LineR.GetComponent<LineRenderer>().SetPosition(0, A.transform.position);
-        LineR.GetComponent<LineRenderer>().SetPosition(1, B.transform.position);
+        visualizador.mapa = mapa;
+        visualizador.VisualizarMapa();
     }
 }
-
-

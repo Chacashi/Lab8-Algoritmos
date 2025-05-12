@@ -1,16 +1,21 @@
 using UnityEngine;
 
-public class NodoMapa : MonoBehaviour
+public class NodoMapa 
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public string Nombre { get; set; }
+    public string Descripcion { get; set; }
+    public bool EsBloqueado { get; set; }
+
+    public NodoMapa(string nombre, string descripcion, bool esBloqueado = false)
     {
-        
+        Nombre = nombre;
+        Descripcion = descripcion;
+        EsBloqueado = esBloqueado;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override string ToString()
     {
-        
+        return $"{Nombre} - {(EsBloqueado ? "Bloqueado" : "Accesible")} | {Descripcion}";
     }
+
 }
