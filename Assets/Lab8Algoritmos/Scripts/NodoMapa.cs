@@ -1,21 +1,22 @@
+
 using UnityEngine;
 
-public class NodoMapa 
+public class NodoMapa : Node<NodoMapa>
 {
-    public string Nombre { get; set; }
-    public string Descripcion { get; set; }
-    public bool EsBloqueado { get; set; }
+    public string id { get; set; }
+    public int cost { get; set; }
 
-    public NodoMapa(string nombre, string descripcion, bool esBloqueado = false)
+    public Vector3 position { get; set; }
+    public NodoMapa(string id, int cost, Vector3 position) : base(null)
     {
-        Nombre = nombre;
-        Descripcion = descripcion;
-        EsBloqueado = esBloqueado;
-    }
+        this.id = id;
+        this.cost = cost;
+        this.Value = this;
+        this.position = position;
 
-    public override string ToString()
-    {
-        return $"{Nombre} - {(EsBloqueado ? "Bloqueado" : "Accesible")} | {Descripcion}";
     }
-
+    
 }
+
+
+

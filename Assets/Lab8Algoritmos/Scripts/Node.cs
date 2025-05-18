@@ -3,21 +3,16 @@ using UnityEngine;
 
 public class Node<T>
 {
-    #region Properties
-    private T key;
-    public List<Node<T>> neighbors;
-    #endregion
-    #region Getters
-    public T Key => key;
-    public List<Node<T>> Neighbors => neighbors;
-    #endregion
+    public T Value { get; set; }
+    public List<Node<T>> Neighbors { get; private set; }
+    public object Key { get; set; }  
 
-    public Node(T _key)
+    public Node(T value)
     {
-        key = _key;
-        neighbors = new List<Node<T>>();
+        Value = value;
+        Neighbors = new List<Node<T>>();
     }
-    #region Methods
+
     public void AddNeighbor(Node<T> neighbor)
     {
         if (!Neighbors.Contains(neighbor))
@@ -25,5 +20,5 @@ public class Node<T>
             Neighbors.Add(neighbor);
         }
     }
-    #endregion
+
 }
